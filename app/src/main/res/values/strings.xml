@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">My Weather</string>
+    <string name="no_location_saved">There\'s no location saved.\nPlease add a location.</string>
+    <string name="weather_icon_description">Current weather icon</string>
+
+    <string name="clear_sky">Clear sky</string>
+    <string name="mainly_clear">Mainly clear</string>
+    <string name="partly_cloudy">Partly cloudy</string>
+    <string name="overcast">Overcast</string>
+    <string name="fog">Fog</string>
+    <string name="light_drizzle">Light drizzle</string>
+    <string name="moderate_drizzle">Moderate drizzle</string>
+    <string name="heavy_drizzle">Heavy drizzle</string>
+    <string name="light_freezing_drizzle">Light freezing drizzle</string>
+    <string name="heavy_freezing_drizzle">Heavy freezing drizzle</string>
+    <string name="light_rain">Light rain</string>
+    <string name="moderate_rain">Moderate rain</string>
+    <string name="heavy_rain">Heavy rain</string>
+    <string name="light_snow">Light snow</string>
+    <string name="moderate_snow">Moderate snow</string>
+    <string name="heavy_snow">Heavy snow</string>
+    <string name="snow_grains">Snow grains</string>
+    <string name="light_rain_showers">Light rain showers</string>
+    <string name="moderate_rain_showers">Moderate rain showers</string>
+    <string name="heavy_rain_showers">Heavy rain showers</string>
+    <string name="light_snow_showers">Light snow showers</string>
+    <string name="heavy_snow_showers">Heavy snow showers</string>
+    <string name="thunderstorm">Thunderstorm</string>
+    <string name="thunderstorm_light_hail">Thunderstorm with light hail</string>
+    <string name="thunderstorm_heavy_hail">Thunderstorm with heavy hail</string>
+
+    <string name="not_available">N/A</string>
+</resources>

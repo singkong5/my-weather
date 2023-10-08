@@ -1,8 +1,8 @@
 # Android My Weather
-A simple weather app that showcases the use of modern Android application development methodologies. My Weather app uses the Open Meto API to get the weather forecast. Open Meteo offers free access for non-commercial use and no developer key required.
+A simple weather app that showcases the use of modern Android application development methodologies. My Weather app uses the [Open Meteo](https://open-meteo.com/) API to get the weather forecast. Open Meteo offers free access for non-commercial use and no developer key required.
 
 ## Screenshot
-![Screenshot1](https://github.com/singkong5/my-weather/assets/143241395/48b7c5dd-3183-469f-a7ff-87d20dd8e5fe)
+![Screenshot1](/screenshots/Screenshot1.png)
 
 ## Tech
 * Kotlin

@@ -1,6 +1,7 @@
 package com.singkong.myweather
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -19,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.singkong.myweather.compose.WeatherListScreen
 import com.singkong.myweather.data.LocationAndWeatherLogs
 import com.singkong.myweather.ui.theme.MyWeatherTheme
@@ -32,6 +34,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                return@setKeepOnScreenCondition viewModel.isLoading.value == true
+            }
+            setOnExitAnimationListener { splashScreen ->
+                // to remove splashscreen with no animation
+                splashScreen.remove()
+            }
+        }
         setContent {
             MyWeatherTheme {
                 Surface(

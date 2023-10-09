@@ -1,9 +1,7 @@
 package com.singkong.myweather.data
 
-import android.util.Log
 import androidx.annotation.WorkerThread
 import com.singkong.myweather.api.WeatherService
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import java.text.SimpleDateFormat
 import java.time.LocalDate

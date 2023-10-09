@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.singkong.myweather.utilities.DATABASE_NAME
 
 /**
  * The Room database for this app
@@ -31,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         //Create and pre-populate the database with 2 locations until add/deleting locations are supported.
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "weather-db")
+            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(object: Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)

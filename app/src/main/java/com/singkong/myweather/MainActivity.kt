@@ -1,7 +1,6 @@
 package com.singkong.myweather
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.singkong.myweather.compose.WeatherListScreen
 import com.singkong.myweather.data.LocationAndWeatherLogs
+import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.ui.theme.MyWeatherTheme
 import com.singkong.myweather.viewmodels.WeatherListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +63,7 @@ fun MainScreen(
 ) {
     val locations by viewModel.savedLocationList.observeAsState(initial = emptyList())
     val locationWeatherLogsMap by viewModel.locationWeatherLogsMap.observeAsState(initial = emptyMap())
+    val userPreferences by viewModel.userPreferences.observeAsState(initial = UserPreferences(0))
 
     viewModel.refreshForecast(locations)
 
@@ -87,7 +88,7 @@ fun MainScreen(
                     locationAndWeatherLogs.add(LocationAndWeatherLogs(loc, emptyList()))
                 }
             }
-            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogs)
+            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogs, userPreferences)
         }
     }
 }

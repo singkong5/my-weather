@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,25 +25,48 @@ import androidx.compose.ui.text.style.TextAlign
 import com.singkong.myweather.R
 import com.singkong.myweather.data.HourlyWeatherLog
 import com.singkong.myweather.data.LocationAndWeatherLogs
+import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.ui.theme.cardBackground
 import com.singkong.myweather.ui.theme.currentTempText
 import com.singkong.myweather.ui.theme.highTempText
 import com.singkong.myweather.ui.theme.titleText
 import com.singkong.myweather.utilities.getWeatherDescriptionResourceId
 import com.singkong.myweather.utilities.getWeatherIconResourceId
+import java.text.DateFormat
 import java.util.Calendar
+import java.util.Date
 
 @Composable
 fun WeatherListScreen(
-   locationWeatherLogsList: List<LocationAndWeatherLogs>
+   locationWeatherLogsList: List<LocationAndWeatherLogs>,
+   userPreferences: UserPreferences
 ) {
     if (locationWeatherLogsList.isEmpty()) {
         EmptyListScreen()
     } else {
-        LazyColumn {
-            items(items = locationWeatherLogsList, itemContent = {
-                WeatherListItem(it)
-            })
+        val lastUpdatedTimeStr = if (userPreferences.lastUpdatedTime == 0L) {
+            stringResource(id = R.string.not_available)
+        } else {
+            DateFormat.getDateTimeInstance().format(Date(userPreferences.lastUpdatedTime))
+        }
+        Column (
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                modifier = Modifier.padding(
+                    top = dimensionResource(id = R.dimen.padding_xs)
+                ),
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.Gray,
+                text = "${stringResource(id = R.string.last_updated_at)} $lastUpdatedTimeStr",
+            )
+
+            LazyColumn {
+                items(items = locationWeatherLogsList, itemContent = {
+                    WeatherListItem(it)
+                })
+            }
         }
     }
 }

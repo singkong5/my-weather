@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 /**
  * Used to connect to open-meteo.com to fetch weather forecast
@@ -24,6 +25,8 @@ interface WeatherService {
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .build()
 
             return Retrofit.Builder()

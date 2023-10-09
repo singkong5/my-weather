@@ -2,6 +2,7 @@
     <string name="app_name">My Weather</string>
     <string name="no_location_saved">There\'s no location saved.\nPlease add a location.</string>
     <string name="weather_icon_description">Current weather icon</string>
+    <string name="last_updated_at">Last updated at\u0020</string>
 
     <string name="clear_sky">Clear sky</string>
     <string name="mainly_clear">Mainly clear</string>

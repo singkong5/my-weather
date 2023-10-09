@@ -19,8 +19,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.singkong.myweather.compose.WeatherListScreen
 import com.singkong.myweather.data.LocationAndWeatherLogs
+import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.ui.theme.MyWeatherTheme
 import com.singkong.myweather.viewmodels.WeatherListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,15 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                return@setKeepOnScreenCondition viewModel.isLoading.value == true
+            }
+            setOnExitAnimationListener { splashScreen ->
+                // to remove splashscreen with no animation
+                splashScreen.remove()
+            }
+        }
         setContent {
             MyWeatherTheme {
                 Surface(
@@ -52,6 +63,7 @@ fun MainScreen(
 ) {
     val locations by viewModel.savedLocationList.observeAsState(initial = emptyList())
     val locationWeatherLogsMap by viewModel.locationWeatherLogsMap.observeAsState(initial = emptyMap())
+    val userPreferences by viewModel.userPreferences.observeAsState(initial = UserPreferences(0))
 
     viewModel.refreshForecast(locations)
 
@@ -76,7 +88,7 @@ fun MainScreen(
                     locationAndWeatherLogs.add(LocationAndWeatherLogs(loc, emptyList()))
                 }
             }
-            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogs)
+            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogs, userPreferences)
         }
     }
 }

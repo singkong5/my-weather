@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.singkong.myweather.compose.WeatherListScreen
-import com.singkong.myweather.data.LocationAndWeatherLogs
+import com.singkong.myweather.data.Location
 import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.ui.theme.MyWeatherTheme
 import com.singkong.myweather.viewmodels.WeatherListViewModel
@@ -61,11 +61,14 @@ class MainActivity : ComponentActivity() {
 fun MainScreen(
     viewModel: WeatherListViewModel
 ) {
-    val locations by viewModel.savedLocationList.observeAsState(initial = emptyList())
-    val locationWeatherLogsMap by viewModel.locationWeatherLogsMap.observeAsState(initial = emptyMap())
+    val locationAndWeatherLogsList by viewModel.locationWeatherLogsList.observeAsState(initial = emptyList())
     val userPreferences by viewModel.userPreferences.observeAsState(initial = UserPreferences(0))
 
-    viewModel.refreshForecast(locations)
+    val locationList = mutableListOf<Location>()
+    for (item in locationAndWeatherLogsList) {
+        locationList.add(item.location)
+    }
+    viewModel.refreshForecast(locationList)
 
     Scaffold(
         topBar = {
@@ -80,15 +83,7 @@ fun MainScreen(
         Column (
             modifier = Modifier.padding(paddingValues),
         ) {
-            val locationAndWeatherLogs = mutableListOf<LocationAndWeatherLogs>()
-            for (loc in locations) {
-                if (locationWeatherLogsMap.containsKey(loc)) {
-                    locationAndWeatherLogs.add(LocationAndWeatherLogs(loc, locationWeatherLogsMap[loc]!!))
-                } else {
-                    locationAndWeatherLogs.add(LocationAndWeatherLogs(loc, emptyList()))
-                }
-            }
-            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogs, userPreferences)
+            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogsList, userPreferences)
         }
     }
 }

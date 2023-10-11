@@ -7,11 +7,12 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.singkong.myweather.data.Location
 import com.singkong.myweather.data.LocationRepository
-import com.singkong.myweather.data.HourlyWeatherLog
+import com.singkong.myweather.data.LocationAndWeatherLogs
 import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.data.UserPreferencesRepository
 import com.singkong.myweather.data.WeatherLogRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,9 +23,14 @@ class WeatherListViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
-    val savedLocationList: LiveData<List<Location>> = locationRepository.getSavedLocation().asLiveData()
-    val locationWeatherLogsMap: LiveData<Map<Location, List<HourlyWeatherLog>>> = weatherLogRepository.getTodayLocationAndWeatherLogs().asLiveData()
     val userPreferences: LiveData<UserPreferences> = userPreferencesRepository.userPreferences.asLiveData()
+
+    val locationWeatherLogsList: LiveData<List<LocationAndWeatherLogs>> =
+        combine(locationRepository.getSavedLocation(), weatherLogRepository.getTodayLocationAndWeatherLogs()) {
+            location, weatherLogsMap -> location.map {
+                LocationAndWeatherLogs(location = it, hourlyWeatherLogs = weatherLogsMap[it] ?: emptyList())
+            }
+        }.asLiveData()
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean>
@@ -44,6 +50,8 @@ class WeatherListViewModel @Inject constructor(
                     _isLoading.value = false
                 }
             }
+        } else {
+            _isLoading.value = false
         }
     }
 

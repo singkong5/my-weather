@@ -1,9 +1,14 @@
 package com.singkong.myweather.compose
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,10 +16,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DismissDirection
+import androidx.compose.material3.DismissState
+import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.singkong.myweather.R
 import com.singkong.myweather.data.HourlyWeatherLog
+import com.singkong.myweather.data.Location
 import com.singkong.myweather.data.LocationAndWeatherLogs
 import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.ui.theme.cardBackground
@@ -36,10 +54,12 @@ import java.text.DateFormat
 import java.util.Calendar
 import java.util.Date
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherListScreen(
    locationWeatherLogsList: List<LocationAndWeatherLogs>,
-   userPreferences: UserPreferences
+   userPreferences: UserPreferences,
+   onDeleteLocation: (Location) -> Unit
 ) {
     if (locationWeatherLogsList.isEmpty()) {
         EmptyListScreen()
@@ -63,11 +83,67 @@ fun WeatherListScreen(
             )
 
             LazyColumn {
-                items(items = locationWeatherLogsList, itemContent = {
-                    WeatherListItem(it)
+                items(items = locationWeatherLogsList,
+                    key = {
+                          it.location.locationId
+                    },
+                    itemContent = {
+                        val currentItem by rememberUpdatedState(it.location)
+                        var show by remember { mutableStateOf(true) }
+                        val dismissState = rememberDismissState(
+                            confirmValueChange = {dismissValue ->
+                                if (dismissValue == DismissValue.DismissedToStart || dismissValue == DismissValue.DismissedToEnd) {
+                                    show = false
+                                    onDeleteLocation(currentItem)
+                                    true
+                                } else false
+                            }
+                        )
+                        AnimatedVisibility(
+                            show, exit = fadeOut(spring())
+                        ) {
+                            SwipeToDismiss(state = dismissState,
+                                background = {
+                                    DismissBackground(dismissState = dismissState)
+                                },
+                                dismissContent = {
+                                    WeatherListItem(it)
+                                })
+                        }
+
                 })
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DismissBackground(dismissState: DismissState) {
+    val direction = dismissState.dismissDirection
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent)
+            .padding(
+                top = dimensionResource(id = R.dimen.padding_xxxl),
+                bottom = dimensionResource(id = R.dimen.padding_xl),
+                start = dimensionResource(id = R.dimen.padding_xl),
+                end = dimensionResource(id = R.dimen.padding_xl)
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        if (direction == DismissDirection.StartToEnd) Icon(
+            painter = painterResource(id = R.drawable.ic_trash),
+            contentDescription = stringResource(id = R.string.delete_location)
+        )
+        Spacer(modifier = Modifier)
+        if (direction == DismissDirection.EndToStart) Icon(
+            painter = painterResource(id = R.drawable.ic_trash),
+            contentDescription = stringResource(id = R.string.delete_location)
+        )
     }
 }
 
@@ -79,7 +155,8 @@ fun WeatherListItem(locationAndWeatherLogs: LocationAndWeatherLogs) {
             .padding(
                 start = dimensionResource(id = R.dimen.padding_small),
                 end = dimensionResource(id = R.dimen.padding_small),
-                top = dimensionResource(id = R.dimen.padding_small)
+                top = dimensionResource(id = R.dimen.padding_xs),
+                bottom = dimensionResource(id = R.dimen.padding_xs)
             )
             .fillMaxWidth(1F),
         colors = CardDefaults.cardColors(containerColor = cardBackground)

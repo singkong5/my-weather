@@ -20,6 +20,14 @@ class LocationRepository @Inject constructor(private val locationDao: LocationDa
         locationDao.insert(location)
     }
 
+    @WorkerThread
+    suspend fun delete(location: Location) {
+        val userOrder = location.userOrder
+        locationDao.delete(location)
+        //Fix user order after a location is deleted
+        locationDao.updateUserOrderAfterDelete(userOrder)
+    }
+
     companion object {
         // For Singleton instantiation
         @Volatile private var instance: LocationRepository? = null

@@ -1,6 +1,7 @@
 package com.singkong.myweather.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -21,4 +22,10 @@ interface LocationDao {
 
     @Upsert
     suspend fun upsertAll(stocks: List<Location>)
+
+    @Delete
+    suspend fun delete(location: Location)
+
+    @Query("UPDATE location SET user_order = user_order -1 WHERE user_order > :userOrder")
+    fun updateUserOrderAfterDelete(userOrder: Int)
 }

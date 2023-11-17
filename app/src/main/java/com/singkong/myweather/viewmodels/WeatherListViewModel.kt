@@ -12,8 +12,10 @@ import com.singkong.myweather.data.UserPreferences
 import com.singkong.myweather.data.UserPreferencesRepository
 import com.singkong.myweather.data.WeatherLogRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -58,6 +60,15 @@ class WeatherListViewModel @Inject constructor(
     fun addLocation(location: Location) {
         viewModelScope.launch {
             locationRepository.insert(location)
+        }
+    }
+
+    fun deleteLocation(location: Location) {
+        viewModelScope.launch {
+            //Run on background
+            withContext(Dispatchers.IO) {
+                locationRepository.delete(location)
+            }
         }
     }
 }

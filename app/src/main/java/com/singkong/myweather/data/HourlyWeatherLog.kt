@@ -14,7 +14,7 @@ import java.util.Date
 @Entity(
     tableName = "hourly_weather_log",
     foreignKeys = [
-        ForeignKey(entity = Location::class, parentColumns = ["id"], childColumns = ["location_id"])
+        ForeignKey(entity = Location::class, parentColumns = ["id"], childColumns = ["location_id"], onDelete = ForeignKey.CASCADE)
     ],
     primaryKeys = ["location_id", "timestamp"]
 )

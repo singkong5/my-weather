@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        //Create and pre-populate the database with 2 locations until add/deleting locations are supported.
+        //Create and pre-populate the database with 6 locations
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addCallback(object: Callback() {
@@ -38,6 +38,10 @@ abstract class AppDatabase : RoomDatabase() {
                         super.onCreate(db)
                         db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('San Francisco', 'USA', '37.7749', '-122.4194', '1')")
                         db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('New York', 'USA', '40.7143', '-74.006', '2')")
+                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('Los Angeles', 'USA', '34.0522', '-118.2437', '3')")
+                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('London', 'England', '51.5085', '-0.1257', '4')")
+                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('Paris', 'France', '48.8534', '2.3488', '5')")
+                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('Singapore', 'Singapore', '1.2897', '103.8501', '6')")
                     }
                 })
                 .build()

@@ -83,7 +83,9 @@ fun MainScreen(
         Column (
             modifier = Modifier.padding(paddingValues),
         ) {
-            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogsList, userPreferences)
+            WeatherListScreen(locationWeatherLogsList = locationAndWeatherLogsList, userPreferences, onDeleteLocation = {
+                viewModel.deleteLocation(it)
+            })
         }
     }
 }

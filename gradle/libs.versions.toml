@@ -14,56 +14,60 @@
 ## limitations under the License.
 ##
 [versions]
-accessibilityTestFramework = "4.0.0"
-activityCompose = "1.7.2"
-androidGradlePlugin = "8.0.2"
+accessibilityTestFramework = "4.1.0"
+activityCompose = "1.8.2"
+androidGradlePlugin = "8.1.0"
 appcompat = "1.6.1"
-benchmark = "1.1.0"
+benchmark = "1.2.2"
 # @keep
-compileSdk = "33"
-composeLatest = "1.4.0-alpha03"
-composeBom = "2023.06.01"
-compose-compiler = "1.4.6"
+compileSdk = "34"
+composeLatest = "1.6.0-rc01"
+composeBom = "2023.10.01"
+compose-compiler = "1.5.7"
 constraintLayoutCompose = "1.0.1"
 constraintLayout = "2.1.4"
 coreTesting = "2.2.0"
-coroutines = "1.6.4"
-espresso = "3.4.0"
+coroutines = "1.7.3"
+espresso = "3.5.1"
 glide = "1.0.0-alpha.3"
 gradle = "7.2.0"
-gson = "2.9.0"
+gson = "2.10"
 guava = "31.1-android"
-hilt = "2.44.2"
-hiltNavigationCompose = "1.0.0"
+hilt = "2.48"
+hiltNavigationCompose = "1.1.0"
 junit = "4.13.2"
-kotlin = "1.8.10"
+kotlin = "1.9.21"
+ksp = "1.9.21-1.0.15"
 ktlint = "0.40.0"
-ktx = "1.7.0"
-lifecycle = "2.6.0-alpha04"
-material = "1.8.0-rc01"
-material3 = "1.0.1"
+ktx = "1.12.0"
+lifecycle = "2.7.0"
+material = "1.12.0-alpha03"
+material3 = "1.1.2"
 # @keep
-minSdk = "23"
-monitor = "1.6.0"
-navigation = "2.5.3"
+minSdk = "33"
+monitor = "1.6.1"
+navigation = "2.7.6"
 okhttpLogging = "4.10.0"
-paging = "3.1.1"
-pagingCompose = "1.0.0-alpha18"
-profileInstaller = "1.2.0"
+paging = "3.2.1"
+pagingCompose = "3.3.0-alpha02"
+profileInstaller = "1.3.1"
 recyclerView = "1.3.0-alpha02"
 retrofit = "2.9.0"
-room = "2.5.2"
+room = "2.6.1"
 runner = "1.0.1"
 # @keep
 targetSdk = "33"
 testExtJunit = "1.1.5"
-tracing = "1.1.0"
+tracing = "1.2.0"
 uiAutomator = "2.2.0"
-viewModelCompose = "2.5.1"
-work = "2.7.1"
+viewModelCompose = "2.7.0"
+work = "2.9.0"
 systemuicontroller = "0.30.1"
 splashscreen = "1.0.1"
 datastore = "1.0.0"
+version-catalog-update = "0.8.3"
+spotless = "6.23.3"
+gradle-versions = "0.50.0"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -127,3 +131,14 @@ retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofi
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
+gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }

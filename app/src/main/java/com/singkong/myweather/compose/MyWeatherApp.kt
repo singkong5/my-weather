@@ -17,7 +17,15 @@ fun MyWeatherApp(viewModel: WeatherListViewModel) {
 fun MyWeatherNavHost(navController: NavHostController, viewModel: WeatherListViewModel) {
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(route = Screen.Home.route) {
-            HomeScreen(viewModel)
+            HomeScreen(
+                viewModel = viewModel,
+                onFabClick = {
+                    navController.navigate(Screen.AddLocation.route)
+                }
+            )
+        }
+        composable(route = Screen.AddLocation.route) {
+            AddLocationScreen()
         }
     }
 }

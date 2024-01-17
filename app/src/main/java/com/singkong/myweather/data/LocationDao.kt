@@ -26,6 +26,9 @@ interface LocationDao {
     @Delete
     suspend fun delete(location: Location)
 
-    @Query("UPDATE location SET user_order = user_order -1 WHERE user_order > :userOrder")
+    @Query("UPDATE location SET user_order = user_order - 1 WHERE user_order > :userOrder")
     fun updateUserOrderAfterDelete(userOrder: Int)
+
+    @Query("UPDATE location SET user_order = user_order + 1")
+    fun updateUserOrderAfterInsert()
 }

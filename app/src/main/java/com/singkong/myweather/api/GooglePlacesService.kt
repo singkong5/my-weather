@@ -1,6 +1,7 @@
 package com.singkong.myweather.api
 
 import com.singkong.myweather.BuildConfig
+import com.singkong.myweather.data.GoogleGeocodeResponse
 import com.singkong.myweather.data.GooglePredictionResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,6 +15,9 @@ interface GooglePlacesService {
 
     @GET("maps/api/place/autocomplete/json?types=%28cities%29")
     suspend fun getPredictions(@Query("input") input: String, @Query("key") key: String = BuildConfig.GOOGLE_API_KEY): GooglePredictionResponse
+
+    @GET("maps/api/geocode/json")
+    suspend fun getLatLong(@Query("place_id") placeId: String, @Query("key") key: String = BuildConfig.GOOGLE_API_KEY): GoogleGeocodeResponse
 
     companion object {
         private const val BASE_URL = "https://maps.googleapis.com/"

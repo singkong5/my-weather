@@ -15,6 +15,30 @@ class GooglePlaceRepository @Inject constructor(private val service: GooglePlace
         return response.predictions
     }
 
+    @WorkerThread
+    suspend fun getLocation(placeId: String): Location {
+        val response = service.getLatLong(placeId)
+        val place = response.results[0]
+
+        var name = ""
+        var country = ""
+        var state = ""
+
+        val addressComponents = place.addressComponents
+
+        for (component in addressComponents) {
+            if (component.types.contains("locality")) {
+                name = component.name
+            } else if (component.types.contains("country")) {
+                country = component.name
+            } else if (component.types.contains("administrative_area_level_1")) {
+                state = component.name
+            }
+        }
+
+        return Location(name, country, place.geometry.location.latitude, place.geometry.location.longitude, 0)
+    }
+
     companion object {
         // For Singleton instantiation
         @Volatile private var instance: GooglePlaceRepository? = null

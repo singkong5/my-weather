@@ -7,14 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.singkong.myweather.BuildConfig
 import com.singkong.myweather.data.GooglePlace
 import com.singkong.myweather.data.GooglePlaceRepository
+import com.singkong.myweather.data.LocationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class AddLocationViewModel @Inject constructor(private val googlePlaceRepository: GooglePlaceRepository) : ViewModel() {
+class AddLocationViewModel @Inject constructor(private val googlePlaceRepository: GooglePlaceRepository, private val locationRepository: LocationRepository) : ViewModel() {
 
     private val _locationPredictions = MutableStateFlow<List<GooglePlace>?>(null)
     val locationPredictions: LiveData<List<GooglePlace>> = _locationPredictions.filterNotNull().asLiveData()
@@ -37,6 +40,18 @@ class AddLocationViewModel @Inject constructor(private val googlePlaceRepository
         _searchQuery.value = query
         if (query.isEmpty()) {
             _locationPredictions.value = emptyList()
+        }
+    }
+
+    fun onLocationSelected(placeId: String) {
+        if (hasValidGoogleApiKey()) {
+            viewModelScope.launch {
+                //Run on background
+                withContext(Dispatchers.IO) {
+                    val location = googlePlaceRepository.getLocation(placeId)
+                    locationRepository.insert(location)
+                }
+            }
         }
     }
 

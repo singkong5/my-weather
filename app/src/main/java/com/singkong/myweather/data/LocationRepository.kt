@@ -18,6 +18,8 @@ class LocationRepository @Inject constructor(private val locationDao: LocationDa
     @WorkerThread
     suspend fun insert(location: Location) {
         locationDao.insert(location)
+        //Fix user order after a location is inserted
+        locationDao.updateUserOrderAfterInsert()
     }
 
     @WorkerThread

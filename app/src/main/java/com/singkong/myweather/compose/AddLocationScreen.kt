@@ -1,5 +1,6 @@
 package com.singkong.myweather.compose
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -72,8 +74,14 @@ fun AddLocationScreen(
                             top = dimensionResource(id = R.dimen.padding_large),
                             bottom = dimensionResource(id = R.dimen.padding_large),
                             start = dimensionResource(id = R.dimen.padding_xl),
-                            end = dimensionResource(id = R.dimen.padding_xl)
-                        ),
+                            end = dimensionResource(id = R.dimen.padding_xl))
+                            .selectable(
+                                selected = true,
+                                onClick = {
+                                    addLocationViewModel.onLocationSelected(it.placeId)
+                                    onBackClick()
+                                }
+                            ),
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.Black,
                         text = it.description,

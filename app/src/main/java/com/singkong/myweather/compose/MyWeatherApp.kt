@@ -25,7 +25,7 @@ fun MyWeatherNavHost(navController: NavHostController, viewModel: WeatherListVie
             )
         }
         composable(route = Screen.AddLocation.route) {
-            AddLocationScreen()
+            AddLocationScreen(onBackClick = { navController.navigateUp() })
         }
     }
 }

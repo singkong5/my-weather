@@ -36,10 +36,10 @@ abstract class AppDatabase : RoomDatabase() {
                 .addCallback(object: Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('San Francisco', 'US', '37.7749', '-122.4194', '1')")
-                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('New York', 'US', '40.7143', '-74.006', '2')")
-                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('London', 'England', '51.5085', '-0.1257', '3')")
-                        db.execSQL("INSERT INTO location (name, country, latitude, longitude, user_order) VALUES ('Singapore', 'Singapore', '1.2897', '103.8501', '4')")
+                        db.execSQL("INSERT INTO location (name, city, country, latitude, longitude, state, user_order) VALUES ('San Francisco, CA, USA', 'San Francisco', 'US', '37.7749', '-122.4194', 'CA', '1')")
+                        db.execSQL("INSERT INTO location (name, city, country, latitude, longitude, state, user_order) VALUES ('New York, NY, USA', 'New York', 'US', '40.7143', '-74.006', 'NY', '2')")
+                        db.execSQL("INSERT INTO location (name, city, country, latitude, longitude, state, user_order) VALUES ('London, UK', 'London', 'England', '51.5085', '-0.1257', 'England', '3')")
+                        db.execSQL("INSERT INTO location (name, city, country, latitude, longitude, state, user_order) VALUES ('Singapore', 'Singapore', 'SG', '1.2897', '103.8501', '', '4')")
                     }
                 })
                 .build()

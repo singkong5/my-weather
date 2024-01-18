@@ -20,7 +20,7 @@ class GooglePlaceRepository @Inject constructor(private val service: GooglePlace
         val response = service.getLatLong(placeId)
         val place = response.results[0]
 
-        var name = ""
+        var city = ""
         var country = ""
         var state = ""
 
@@ -28,7 +28,7 @@ class GooglePlaceRepository @Inject constructor(private val service: GooglePlace
 
         for (component in addressComponents) {
             if (component.types.contains("locality")) {
-                name = component.name
+                city = component.name
             } else if (component.types.contains("country")) {
                 country = component.name
             } else if (component.types.contains("administrative_area_level_1")) {
@@ -36,7 +36,7 @@ class GooglePlaceRepository @Inject constructor(private val service: GooglePlace
             }
         }
 
-        return Location(name, country, place.geometry.location.latitude, place.geometry.location.longitude, 0)
+        return Location(place.formattedAddress, city, country, place.geometry.location.latitude, place.geometry.location.longitude, state, 0)
     }
 
     companion object {

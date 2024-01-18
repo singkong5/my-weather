@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.singkong.myweather.BuildConfig
-import com.singkong.myweather.data.GooglePlace
-import com.singkong.myweather.data.GooglePlaceRepository
-import com.singkong.myweather.data.LocationRepository
+import com.singkong.myweather.data.place.GooglePlace
+import com.singkong.myweather.data.repo.GooglePlaceRepository
+import com.singkong.myweather.data.repo.LocationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

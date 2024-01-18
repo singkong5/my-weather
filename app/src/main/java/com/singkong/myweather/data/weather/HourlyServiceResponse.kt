@@ -1,4 +1,4 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.weather
 
 import com.google.gson.annotations.SerializedName
 

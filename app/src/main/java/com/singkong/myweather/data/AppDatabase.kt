@@ -6,6 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.singkong.myweather.data.weather.HourlyWeatherLog
+import com.singkong.myweather.data.weather.HourlyWeatherLogDao
+import com.singkong.myweather.data.weather.Location
+import com.singkong.myweather.data.weather.LocationDao
 import com.singkong.myweather.utilities.DATABASE_NAME
 
 /**

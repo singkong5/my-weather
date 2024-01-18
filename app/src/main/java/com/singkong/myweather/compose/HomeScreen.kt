@@ -18,8 +18,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.singkong.myweather.R
-import com.singkong.myweather.data.Location
-import com.singkong.myweather.data.UserPreferences
+import com.singkong.myweather.data.weather.Location
+import com.singkong.myweather.data.repo.UserPreferences
 import com.singkong.myweather.viewmodels.WeatherListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

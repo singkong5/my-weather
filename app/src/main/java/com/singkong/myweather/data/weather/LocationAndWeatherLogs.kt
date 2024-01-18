@@ -1,7 +1,9 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.weather
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.singkong.myweather.data.weather.HourlyWeatherLog
+import com.singkong.myweather.data.weather.Location
 
 /**
  * This class captures the relationship between a [Location] and [HourlyWeatherLog], which is

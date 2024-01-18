@@ -40,10 +40,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.singkong.myweather.R
-import com.singkong.myweather.data.HourlyWeatherLog
-import com.singkong.myweather.data.Location
-import com.singkong.myweather.data.LocationAndWeatherLogs
-import com.singkong.myweather.data.UserPreferences
+import com.singkong.myweather.data.weather.HourlyWeatherLog
+import com.singkong.myweather.data.weather.Location
+import com.singkong.myweather.data.weather.LocationAndWeatherLogs
+import com.singkong.myweather.data.repo.UserPreferences
 import com.singkong.myweather.ui.theme.cardBackground
 import com.singkong.myweather.ui.theme.currentTempText
 import com.singkong.myweather.ui.theme.highTempText
@@ -57,9 +57,9 @@ import java.util.Date
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherListScreen(
-   locationWeatherLogsList: List<LocationAndWeatherLogs>,
-   userPreferences: UserPreferences,
-   onDeleteLocation: (Location) -> Unit
+    locationWeatherLogsList: List<LocationAndWeatherLogs>,
+    userPreferences: UserPreferences,
+    onDeleteLocation: (Location) -> Unit
 ) {
     if (locationWeatherLogsList.isEmpty()) {
         EmptyListScreen()

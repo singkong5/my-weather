@@ -1,6 +1,5 @@
 package com.singkong.myweather.compose
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -46,7 +45,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.singkong.myweather.R
-import com.singkong.myweather.ui.theme.PurpleGrey80
 import com.singkong.myweather.viewmodels.AddLocationViewModel
 
 @Composable

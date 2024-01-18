@@ -1,8 +1,8 @@
 package com.singkong.myweather.api
 
 import com.singkong.myweather.BuildConfig
-import com.singkong.myweather.data.GoogleGeocodeResponse
-import com.singkong.myweather.data.GooglePredictionResponse
+import com.singkong.myweather.data.place.GoogleGeocodeResponse
+import com.singkong.myweather.data.place.GooglePredictionResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,6 +11,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
+/**
+ * Used to connect to Google maps API to fetch cities based on input query and fetch geocode information
+ */
 interface GooglePlacesService {
 
     @GET("maps/api/place/autocomplete/json?types=%28cities%29")

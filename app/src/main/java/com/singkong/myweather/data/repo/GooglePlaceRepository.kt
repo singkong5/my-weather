@@ -1,7 +1,9 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.repo
 
 import androidx.annotation.WorkerThread
 import com.singkong.myweather.api.GooglePlacesService
+import com.singkong.myweather.data.place.GooglePlace
+import com.singkong.myweather.data.weather.Location
 import javax.inject.Inject
 import javax.inject.Singleton
 

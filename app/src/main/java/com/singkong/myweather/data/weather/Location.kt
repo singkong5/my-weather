@@ -1,4 +1,4 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.weather
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

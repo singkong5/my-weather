@@ -2,8 +2,8 @@ package com.singkong.myweather.di
 
 import android.content.Context
 import com.singkong.myweather.data.AppDatabase
-import com.singkong.myweather.data.LocationDao
-import com.singkong.myweather.data.HourlyWeatherLogDao
+import com.singkong.myweather.data.weather.LocationDao
+import com.singkong.myweather.data.weather.HourlyWeatherLogDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,7 +1,10 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.repo
 
 import androidx.annotation.WorkerThread
 import com.singkong.myweather.api.WeatherService
+import com.singkong.myweather.data.weather.HourlyWeatherLog
+import com.singkong.myweather.data.weather.HourlyWeatherLogDao
+import com.singkong.myweather.data.weather.Location
 import kotlinx.coroutines.flow.Flow
 import java.text.SimpleDateFormat
 import java.time.LocalDate

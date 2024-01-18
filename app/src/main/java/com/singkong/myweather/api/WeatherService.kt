@@ -1,6 +1,6 @@
 package com.singkong.myweather.api
 
-import com.singkong.myweather.data.WeatherServiceResponse
+import com.singkong.myweather.data.weather.WeatherServiceResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

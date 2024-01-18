@@ -1,4 +1,4 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.weather
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
+import com.singkong.myweather.data.weather.Location
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -26,6 +27,9 @@ interface LocationDao {
     @Delete
     suspend fun delete(location: Location)
 
-    @Query("UPDATE location SET user_order = user_order -1 WHERE user_order > :userOrder")
+    @Query("UPDATE location SET user_order = user_order - 1 WHERE user_order > :userOrder")
     fun updateUserOrderAfterDelete(userOrder: Int)
+
+    @Query("UPDATE location SET user_order = user_order + 1")
+    fun updateUserOrderAfterInsert()
 }

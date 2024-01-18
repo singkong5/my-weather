@@ -4,6 +4,10 @@ import androidx.room.Room
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.singkong.myweather.data.weather.HourlyWeatherLog
+import com.singkong.myweather.data.weather.HourlyWeatherLogDao
+import com.singkong.myweather.data.weather.Location
+import com.singkong.myweather.data.weather.LocationDao
 import com.singkong.myweather.utilities.testDate
 import com.singkong.myweather.utilities.testDate1
 import com.singkong.myweather.utilities.testDate2

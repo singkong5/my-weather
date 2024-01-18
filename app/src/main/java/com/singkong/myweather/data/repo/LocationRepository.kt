@@ -1,6 +1,8 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.repo
 
 import androidx.annotation.WorkerThread
+import com.singkong.myweather.data.weather.Location
+import com.singkong.myweather.data.weather.LocationDao
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,6 +20,8 @@ class LocationRepository @Inject constructor(private val locationDao: LocationDa
     @WorkerThread
     suspend fun insert(location: Location) {
         locationDao.insert(location)
+        //Fix user order after a location is inserted
+        locationDao.updateUserOrderAfterInsert()
     }
 
     @WorkerThread

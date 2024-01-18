@@ -32,4 +32,8 @@
 
     <string name="not_available">N/A</string>
     <string name="delete_location">Delete Location</string>
+
+    <string name="back">Back</string>
+    <string name="search">Search</string>
+    <string name="clear_search">Clear search</string>
 </resources>

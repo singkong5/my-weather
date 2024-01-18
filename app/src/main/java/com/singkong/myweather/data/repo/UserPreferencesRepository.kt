@@ -1,4 +1,4 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.repo
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

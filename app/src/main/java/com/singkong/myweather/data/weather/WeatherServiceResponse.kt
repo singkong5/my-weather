@@ -1,6 +1,7 @@
-package com.singkong.myweather.data
+package com.singkong.myweather.data.weather
 
 import com.google.gson.annotations.SerializedName
+import com.singkong.myweather.data.weather.HourlyServiceResponse
 
 /**
 * Data class that represents a weather forecast response from open-meteo.com.

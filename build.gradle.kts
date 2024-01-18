@@ -3,21 +3,17 @@ buildscript {
         google()
         mavenCentral()
     }
-
-    dependencies {
-        classpath(libs.android.gradle.plugin)
-        classpath(libs.kotlin.gradle.plugin)
-        classpath(libs.hilt.android.gradle.plugin)
-    }
 }
 
 plugins {
-    id("com.diffplug.spotless") version "6.4.1"
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.android.test) apply false
+    alias(libs.plugins.gradle.versions)
+    alias(libs.plugins.version.catalog.update)
 }
 
-spotless {
-    kotlin {
-        target("**/*.kt")
-        ktlint(libs.versions.ktlint.get()).userData(mapOf("max_line_length" to "100"))
-    }
-}
+apply("${project.rootDir}/buildscripts/toml-updater-config.gradle")

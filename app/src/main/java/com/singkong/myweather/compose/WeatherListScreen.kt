@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.singkong.myweather.R
+import com.singkong.myweather.data.repo.TemperatureUnit
 import com.singkong.myweather.data.weather.HourlyWeatherLog
 import com.singkong.myweather.data.weather.Location
 import com.singkong.myweather.data.weather.LocationAndWeatherLogs
@@ -107,7 +108,7 @@ fun WeatherListScreen(
                                     DismissBackground(dismissState = dismissState)
                                 },
                                 dismissContent = {
-                                    WeatherListItem(it)
+                                    WeatherListItem(it, userPreferences)
                                 })
                         }
 
@@ -148,7 +149,7 @@ fun DismissBackground(dismissState: DismissState) {
 }
 
 @Composable
-fun WeatherListItem(locationAndWeatherLogs: LocationAndWeatherLogs) {
+fun WeatherListItem(locationAndWeatherLogs: LocationAndWeatherLogs, userPreferences: UserPreferences) {
 
     ElevatedCard(
         modifier = Modifier
@@ -171,16 +172,47 @@ fun WeatherListItem(locationAndWeatherLogs: LocationAndWeatherLogs) {
                 color = titleText,
                 text = locationAndWeatherLogs.location.name,
             )
-            WeatherDataScreen(locationAndWeatherLogs.hourlyWeatherLogs)
+            WeatherDataScreen(locationAndWeatherLogs.hourlyWeatherLogs, userPreferences = userPreferences)
         }
     }
 }
 
 @Composable
-fun WeatherDataScreen(hourlyWeatherLogList: List<HourlyWeatherLog>) {
+fun WeatherDataScreen(hourlyWeatherLogList: List<HourlyWeatherLog>, userPreferences: UserPreferences) {
 
     val noData = hourlyWeatherLogList.isEmpty()
     val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+
+    var tempUnit = if (userPreferences.temperatureUnit == TemperatureUnit.FAHRENHEIT) {
+        "F"
+    } else {
+        "C"
+    }
+
+    var currentTemperature: Double
+    var maxTemp: Double
+    var minTemp: Double
+    var currentTempStr = "--"
+    var maxTempStr = "--"
+    var minTempStr = "--"
+
+    if (!noData) {
+        currentTemperature = hourlyWeatherLogList[currentHour].temperature
+        maxTemp = hourlyWeatherLogList.maxBy { it.temperature}.temperature
+        minTemp = hourlyWeatherLogList.minBy { it.temperature}.temperature
+        currentTempStr = "$currentTemperature"
+        maxTempStr = "$maxTemp"
+        minTempStr = "$minTemp"
+
+        if (userPreferences.temperatureUnit == TemperatureUnit.FAHRENHEIT) {
+            currentTemperature = currentTemperature * 9 / 5 + 32
+            maxTemp = maxTemp * 9 / 5 + 32
+            minTemp = minTemp * 9 / 5 + 32
+            currentTempStr = "${currentTemperature.toInt()}"
+            maxTempStr = "${maxTemp.toInt()}"
+            minTempStr = "${minTemp.toInt()}"
+        }
+    }
 
     Row {
         Image(
@@ -206,7 +238,7 @@ fun WeatherDataScreen(hourlyWeatherLogList: List<HourlyWeatherLog>) {
                 Text(
                     style = MaterialTheme.typography.labelLarge,
                     color = currentTempText,
-                    text = "${if (noData) "--" else hourlyWeatherLogList[currentHour].temperature}° C",
+                    text = "$currentTempStr° $tempUnit",
                 )
 
                 Column (
@@ -220,14 +252,14 @@ fun WeatherDataScreen(hourlyWeatherLogList: List<HourlyWeatherLog>) {
                     Text(
                         style = MaterialTheme.typography.labelSmall,
                         color = highTempText,
-                        text = "H ${if (noData) "--" else hourlyWeatherLogList.maxBy { it.temperature}.temperature}° C",
+                        text = "H $maxTempStr° $tempUnit",
                     )
 
                     //Min temp for the day
                     Text(
                         style = MaterialTheme.typography.labelSmall,
                         color = currentTempText,
-                        text = "L  ${if (noData) "--" else hourlyWeatherLogList.minBy { it.temperature}.temperature}° C",
+                        text = "L  $minTempStr° $tempUnit",
                     )
                 }
             }

@@ -36,4 +36,10 @@
     <string name="back">Back</string>
     <string name="search">Search</string>
     <string name="clear_search">Clear search</string>
+    <string name="settings">Settings</string>
+    <string name="ok_button">OK</string>
+
+    <string name="units_title">Units</string>
+    <string name="temperature_unit_celsius">Celsius °C</string>
+    <string name="temperature_unit_fahrenheit">Fahrenheit °F</string>
 </resources>

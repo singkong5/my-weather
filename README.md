@@ -15,6 +15,7 @@ google_api_key=<your Google access key>
 ![Screenshot2](/screenshots/Screenshot2.png)
 ![Screenshot3](/screenshots/Screenshot3.png)
 ![Screenshot4](/screenshots/Screenshot4.png)
+![Screenshot5](/screenshots/Screenshot5.png)
 
 ## Tech
 * Kotlin
@@ -34,7 +35,7 @@ google_api_key=<your Google access key>
 ## Features not yet implemented
 * ~~Splash screen~~
 * ~~Add/delete location~~
-* Temperature unit (F/C) settings
+* ~~Temperature unit (F/C) settings~~
 * Arrange and save order of locations
 * Error handling
 * Location’s weather detail screen that shows hourly weather forecast
